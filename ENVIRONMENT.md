@@ -42,10 +42,15 @@ files. These assets are already tracked; no dataset download, DVC remote, or
 trained answer artifact is needed. Installing the Python package alone does not
 copy the root-level dataset or template. Preserve the incomplete learner stubs.
 
-This repository does not contain a Udacity Workspace image definition. The exact
-externally managed image/launch configuration source has not been verified.
-Apply these commands to the provided source tree; do not
-assume editing requirements automatically rebuilds the Workspace image.
+This repository does not contain a Udacity Workspace image definition. The
+external launch settings are in the [Mocha Project Workspace atom](https://mocha.udacity.com/libraries/courses/cd16209/en-us/1.0/lessons/01616363-8ab9-407d-9898-38a8aebc41af/pages/d83ee412-606a-4e92-84c9-e0d6194cfe3f).
+As verified on 2026-09-28, its Workspace Config Name is `cd0582-vscode`, Main
+Default Path is `/?folder=/workspace/nd0821-c3-starter-code/`, command override is
+blank, and Allow Submit is unchecked. The underlying image build recipe is not
+exposed by these settings or the course Workspace Config page. No configuration
+was changed for this environment verification; launch/image updates belong to
+issue #15. Apply these commands to the provided source tree; editing requirements
+does not automatically rebuild the Workspace image.
 
 Verification should check imports, bundled file paths, and dependency consistency.
 The unfinished training script and API are learner work, so environment smoke
