@@ -1,20 +1,16 @@
-# Python 3.13 Compatibility Updates
+# Python 3.13 environment
 
-This document summarizes the changes made to make the codebase compatible with Python 3.13.
+Python 3.13 is the supported, tested interpreter for this project. Install the
+pinned dependencies from `requirements.txt` and the local package using the
+commands in [ENVIRONMENT.md](ENVIRONMENT.md). The package metadata's minimum
+Python version does not establish compatibility with later interpreters.
 
-## Dependencies Updated
-- Python: 3.8 → 3.13.0
-- NumPy: Latest compatible (1.26.0+)
-- Pandas: Latest compatible (2.1.0+)
-- scikit-learn: Latest compatible (1.3.0+)
-- FastAPI: 0.63.0 → 0.103.0+
-- Other dependencies updated to latest stable versions
+The supplied preprocessing in `starter/ml/data.py` uses
+`OneHotEncoder(sparse_output=False, handle_unknown="ignore")`, matching the
+pinned scikit-learn API. The learner still implements training, inference, and
+the FastAPI application; environment compatibility is not proof of a completed
+project or passing learner tests.
 
-## Code Changes
-1. **ML Data Processing (`starter/ml/data.py`)**
-   - Updated OneHotEncoder parameters from `sparse=False` to `sparse_output=False` to match newer scikit-learn API
-
-## Notes
-- The core ML functionality and boilerplate structure remains unchanged
-- Dependencies updated to ensure compatibility with Python 3.13
-- Starter code structure maintained for student implementation
+[README.md](README.md) describes the local workflow, and
+[SUBMISSION.md](SUBMISSION.md) defines the required ZIP contents. No separate
+notebook, cloud, or DVC dependency installation is required by that workflow.
