@@ -55,3 +55,25 @@ does not automatically rebuild the Workspace image.
 Verification should check imports, bundled file paths, and dependency consistency.
 The unfinished training script and API are learner work, so environment smoke
 checks do not establish that a completed submission passes its tests.
+
+## Local quality validation
+
+After completing the learner implementation and adding its tests, run from the
+repository root:
+
+```sh
+.venv/bin/python scripts/check.py
+```
+
+The command runs the actual pytest suite, then flake8, using the same Python
+interpreter and the repository root as the working directory. It stops with a
+nonzero exit status if either tool fails, including pytest finding no tests.
+Success is printed only after both tools pass. Flake8 excludes the provisioned
+`.venv` directory, not unfinished project code. The pristine starter is incomplete
+and is not expected to pass this gate.
+
+This is local automated quality validation, not hosted CI/CD or automatic cloud
+deployment. The runner needs no remote repository, service, or credentials.
+`sanitycheck.py` remains an optional interactive, heuristic advisory tool; it is
+not part of this unattended gate and its output does not establish a passing
+quality check.
