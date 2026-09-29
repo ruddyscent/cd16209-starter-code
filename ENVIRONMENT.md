@@ -48,16 +48,20 @@ infrastructure is separate from this project environment.
 
 ## Image maintainer handoff (#25)
 
+Use [WORKSPACE_IMAGE_HANDOFF.md](WORKSPACE_IMAGE_HANDOFF.md) for the concrete
+update plan for the existing image, selected starter SHA, and evidence return.
+
 Provision the full starter tree at `/workspace/cd16209-starter-code`, including
 `data/census.csv`, `model_card_template.md`, `main.py`, `starter/`, both scripts,
 and README.md, ENVIRONMENT.md, and SUBMISSION.md. Installing the Python package
 alone does not copy the root-level data or documentation. Do not include a
 reference solution, learner tests, or trained answer artifacts.
 
-Use a reviewed merged revision containing both #23's support-file lint fixes
-and #24's documentation changes. Record that exact full commit SHA in the image
-handoff/build evidence once available; #24 is not yet a published revision in
-this document, so no final image SHA is asserted here. The current maintainer
+The selected starter revision is
+`7f29e1afa46af42507fc0cc8ac31879dcbf8c026`, containing the merged #23 support-file
+lint fixes and #24 documentation changes. Record it in the image update evidence.
+This is a source commit, not an image digest; image publication and reset
+verification remain pending. The current maintainer
 source is [ruddyscent/cd16209-starter-code](https://github.com/ruddyscent/cd16209-starter-code).
 This is a maintainer input, not a required learner download. Confirm any separate
 official Udacity starter link before substituting it; its availability is not
