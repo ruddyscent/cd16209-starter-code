@@ -4,9 +4,8 @@ Train and evaluate a Census income classifier, examine its performance across
 categorical data slices, test the model and API, and serve real predictions with
 FastAPI. Complete this project in a Udacity Workspace or equivalent local Python
 environment. The data and model-card template are bundled; no third-party service
-account, hosted runtime, remote repository, or public URL is required. Package
-installation during setup requires access to a Python package index. Local Git
-is optional.
+account, hosted runtime, remote repository, or public URL is required. The Workspace requires no learner package installation. Optional local/reviewer
+setup may access a Python package index. Local Git is optional.
 
 ## 1. Set up the environment
 
@@ -15,20 +14,21 @@ Open a terminal in the project root: the directory containing `requirements.txt`
 `starter/` is the Python package; for example, preprocessing lives at
 `starter.ml.data`.
 
-Use Python 3.13. On Linux or macOS:
+The preinstalled Udacity Workspace is the default development and submission
+path. Use its Python 3.13 `ml` environment; do not create a new virtual environment
+or install packages in the Workspace. Open `/workspace/cd16209-starter-code` and
+confirm `python --version` reports Python 3.13. The terminal and editor should use
+`/opt/conda/envs/ml/bin/python`.
 
-```sh
-python3.13 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m pip install -e .
-.venv/bin/python -m pip check
-```
+If the updated source or required software is missing, ask course support to
+provision the image rather than installing it yourself. Image deployment and
+reset verification are tracked separately; these instructions are the target
+configuration, not proof that every existing Workspace has been updated.
 
-On Windows use a Python 3.13 interpreter to create the environment and replace
-`.venv/bin/python` with `.venv\Scripts\python.exe` in subsequent commands.
-[ENVIRONMENT.md](ENVIRONMENT.md) describes the dependency and provisioning scope.
-Use the pinned requirements, including pytest and flake8, rather than installing
-an unrelated set of latest packages.
+For optional local development or reviewer reproduction, follow the isolated
+installation commands in [ENVIRONMENT.md](ENVIRONMENT.md), activate that
+environment, and use `python` for the commands below. `requirements.txt` remains
+the pinned dependency source for maintainers and local/reviewer setup.
 
 ## 2. Complete the model and evaluation
 
@@ -54,12 +54,12 @@ the functions in `starter/ml/model.py`; use the provided preprocessing in
 After implementing the training path, run:
 
 ```sh
-.venv/bin/python -m starter.train_model
+python -m starter.train_model
 ```
 
 Training must produce the artifacts used by the API. Inference must load these
 artifacts without retraining or fitting new preprocessing. Include the artifacts
-in the final ZIP even if Git ignores them.
+in every submission route even if Git ignores them.
 
 ## 3. Complete the API and tests
 
@@ -82,7 +82,7 @@ hard-coded prediction. Check response status and prediction content.
 Run the local quality gate:
 
 ```sh
-.venv/bin/python scripts/check.py
+python scripts/check.py
 ```
 
 It runs pytest and then flake8, stopping on failure (including no tests). Fix
@@ -97,19 +97,19 @@ part of this gate.
 After training and implementing the API, start the server:
 
 ```sh
-.venv/bin/python -m uvicorn main:app --host 127.0.0.1 --port 8000
+python -m uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
 Leave it running. In a second terminal at the same project root, run the
 `request.py` script you implement:
 
 ```sh
-.venv/bin/python request.py
+python request.py
 ```
 
 Use `requests` in that script and implement a `--base-url` argument defaulting
 to `http://127.0.0.1:8000`. For example, the following invocation must use the
-specified server: `.venv/bin/python request.py --base-url http://127.0.0.1:8000`.
+specified server: `python request.py --base-url http://127.0.0.1:8000`.
 Call GET `/` and your inference POST route with valid input,
 print each HTTP status and response body (including the inference result), and
 exit nonzero on an unexpected result. Use a timeout so a failed server does not
@@ -121,26 +121,27 @@ The API's local `/docs` page can help inspect the request model. Export its
 
 ## 5. Capture evidence and submit
 
-Follow [SUBMISSION.md](SUBMISSION.md), the canonical archive manifest. Create:
+Follow [SUBMISSION.md](SUBMISSION.md) for the required files on every route.
+Create `evidence/validation.txt` (command, actual pytest/flake8 output and exit
+status zero), `evidence/http.txt` (real GET/POST commands, statuses and bodies),
+and `evidence/openapi.json` (request example and aliases). Record every trained
+model/preprocessing artifact and extra supporting file in `submission_files.txt`.
 
-- `evidence/validation.txt`: validation command, pytest/flake8 output, and exit
-  status zero; check the actual status before recording success.
-- `evidence/http.txt`: local GET and POST commands, HTTP status codes, and bodies.
-- `evidence/openapi.json`: the exported schema with request example and aliases.
-- `submission_files.txt`: explicit project-relative paths for every model and
-  preprocessing artifact and any additional supporting files not auto-included.
+Submit through Workspace by default after checking that its submission includes
+all required files. GitHub and ZIP are optional alternatives with the same
+source, tests, data, trained artifacts, documentation, and evidence requirements.
+No external account is needed for the Workspace or ZIP route. Save your work and
+keep a downloaded backup.
 
-After completing every required file and reviewing the selected contents, run:
+For optional ZIP submission, run the following from the project root:
 
 ```sh
-.venv/bin/python scripts/package_submission.py submission.zip
+python scripts/package_submission.py submission.zip
 ```
 
-The helper includes ignored artifacts listed in `submission_files.txt` and refuses
-to overwrite an existing ZIP; choose a new filename for a revised submission.
-Review the archive for unrelated files or embedded credentials.
-
-Extract into a fresh directory and enter its `submission/` root. Install the
-environment there, run `scripts/check.py`, start Uvicorn, and run `request.py`.
-Verify inference loads the submitted artifacts without running training and
-without accessing the original checkout. Submit that self-contained ZIP.
+The helper includes listed Git-ignored artifacts and requires a new output
+filename. Extract and test the
+archive's `submission/` root using the local/reviewer setup in ENVIRONMENT.md.
+For every route, inference must load submitted artifacts without retraining or
+accessing the original working directory. See SUBMISSION.md for route-specific
+inclusion and reproduction checks.
